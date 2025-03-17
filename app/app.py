@@ -1,5 +1,5 @@
 import random
-from flask import Flask, render_template
+from flask import Flask, render_template, abort
 from faker import Faker
 
 fake = Faker()
@@ -33,6 +33,8 @@ def generate_post(i):
     }
 
 posts_list = sorted([generate_post(i) for i in range(5)], key=lambda p: p['date'], reverse=True)
+comments_list = generate_comments()
+
 
 @app.route('/')
 def index():
@@ -44,9 +46,14 @@ def posts():
 
 @app.route('/posts/<int:index>')
 def post(index):
+    if index < 0 or index >= len(posts_list):
+        abort(404)  # Возвращает 404 ошибку
     p = posts_list[index]
-    return render_template('post.html', title=p['title'], post=p)
+    return render_template('post.html', title=p['title'], post=p, comments=comments_list)
 
 @app.route('/about')
 def about():
     return render_template('about.html', title='Об авторе')
+
+if __name__ == '__main__':
+    app.run(debug=True)
