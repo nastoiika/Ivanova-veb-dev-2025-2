@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+    <form method="POST">
+        <div class="mb-2">
+            <label for="number">Введите номер</label>
+            <input type="text" name="number" class="form-control {% if error %}is-invalid{% endif %}">
+        </div>
+        <div class="mb-2">
+            <button type="submit">Проверить</button>
+        </div>
+    </form>
+    {% if error == "Неверное количество цифр" %}
+    <div>
+        <h1>Ошибка</h1>
+        <div class="invalid-feedback d-block" >
+            <p>Недопустимый ввод. Неверное количество цифр.</p>
+        </div>
+    </div>
+    {% elif error == "Недопустимые символы" %}
+    <div>
+        <h1>Ошибка</h1>
+        <div class="invalid-feedback d-block">
+            <p>Недопустимый ввод. В номере телефона встречаются недопустимые символы.</p>
+        </div>
+    </div>
+    {%else%}
+        {% if error != "0" %}
+            <div>Номер: {{cleaned_number}}</div>
+        {%endif%}
+        {% if error != "0" %}
+            <div class="invalid-feedback">
+                <p>{{ error }}</p>
+            </div>
+        {% endif %}
+    {%endif%}
+{% endblock %}

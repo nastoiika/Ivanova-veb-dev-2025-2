@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+    <form method="POST">
+        <div class="mb-2">
+            <label for="fio">ФИО</label>
+            <input type="text" name="fio">
+        </div>
+        <div class="mb-2">
+            <button type="submit">Отправить</button>
+        </div>
+    </form>
+    {% if request.form %}
+    <table>
+        <tbody>
+            {% for key, value in request.form.items() %}
+            <tr>
+                <td> {{ key }}: </td>
+                <td> {{ value }} </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {%endif%}
+{% endblock %}

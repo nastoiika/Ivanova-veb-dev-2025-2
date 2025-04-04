@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="display-4" fw-semibold>{{ post.title }}</h1>
+<h3 class="display-9 fst-italic text-dark">{{ post.author }}, {{  post.date.strftime('%d.%m.%Y') }}</h3>
+
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+            <img class="card-img-top " style="width: 800px; height: auto;" src="{{ url_for('static', filename='images/' + post.image_id) }}" alt="Card image cap">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p class="mt-5">{{post.text}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form>
+                <div class="mb-3">
+                    <label for="comment" class="form-label">Оставьте коментарий</label>
+                    <textarea class="form-control" id="comment" name="comment" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Отправить</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h5 class="mt-4">Комментарии</h5>
+            {% for comment in comments %}
+                <div class="d-flex mb-3">
+                    <div class="flex-shrink-0">
+                        <img src="\static\images\png-transparen.png" alt="Sample Image" width="50" height="50">
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <h5>{{ comment.author }}</h5>
+                        <p>{{ comment.text }}</p>
+                    </div>
+                </div>
+    
+                {% if comment.replies %}
+                    <div class="ms-4">
+                        {% for reply in comment.replies %}
+                            <div class="d-flex mb-2">
+                                <div class="flex-shrink-0">
+                                    <img src="\static\images\png-transparen.png" alt="Sample Image" width="40" height="40">
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6>{{ reply.author }}</h6>
+                                    <p>{{ reply.text }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
