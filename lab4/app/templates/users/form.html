@@ -1,0 +1,48 @@
+{% macro user_form(roles, action, user_data={}) %}
+<form method="post">
+    {% if action != 'edit' %}
+    <div class="mb-3">
+        <label for="login" class="form-label">Логин</label>
+        <input type="text" autocomplete="off" name="username" id="login" class="form-control" value="{{ user_data.username or '' }}" {% if action == 'edit' %}readonly{% endif %}>
+    </div>
+    {% endif %}
+
+    {% if action == 'new' %}
+    <div class="mb-3">
+        <label for="password" class="form-label">Пароль</label>
+        <input type="password" name="password" id="password" class="form-control" value="" autocomplete="new-password">
+    </div>
+    {% endif %}
+
+    <div class="mb-3">
+        <label for="first_name" class="form-label">Имя</label>
+        <input type="text" name="first_name" id="first_name" class="form-control" value="{{ user_data.first_name or '' }}">
+    </div>
+
+    <div class="mb-3">
+        <label for="middle_name" class="form-label">Отчество</label>
+        <input type="text" name="middle_name" id="middle_name" class="form-control" value="{{ user_data.middle_name or '' }}">
+    </div>
+
+    <div class="mb-3">
+        <label for="last_name" class="form-label">Фамилия</label>
+        <input type="text" name="last_name" id="last_name" class="form-control" value="{{ user_data.last_name or '' }}">
+    </div>
+
+    <div class="mb-3">
+        <label for="role_id" class="form-label">Роль</label>
+        <select type="text" name="role_id" id="role_id" class="form-control">
+            {% for role in roles %}
+            <option value="{{ role.id }}" {% if role.id == user_data.role_id %} selected {% endif %}>{{ role.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    </div>
+</form>
+{% block scripts %}
+<script src="{{ url_for('static', filename='user_delete_modal.js') }}"></script>
+{% endblock %}
+{% endmacro %}

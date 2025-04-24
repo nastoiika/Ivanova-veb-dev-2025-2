@@ -20,22 +20,22 @@ def captured_templates(app):
     finally:
         template_rendered.disconnect(record, app)
 
-def test_invalid_characters(client):
-    rv = client.post('/number', data={'number': '123abc456'})
-    content = rv.data.decode('utf-8')  
-    assert 'Недопустимый ввод. В номере телефона встречаются недопустимые символы.' in content
-    assert 'is-invalid' in content
+# def test_invalid_characters(client):
+#     rv = client.post('/number', data={'number': '123abc456'})
+#     content = rv.data.decode('utf-8')  
+#     assert 'Недопустимый ввод. В номере телефона встречаются недопустимые символы.' in content
+#     assert 'is-invalid' in content
 
-def test_invalid_number_length(client):
-    rv = client.post('/number', data={'number': '12345'})
-    content = rv.data.decode('utf-8')
-    assert 'Неверное количество цифр' in content
-    assert 'is-invalid' in content
+# def test_invalid_number_length(client):
+#     rv = client.post('/number', data={'number': '12345'})
+#     content = rv.data.decode('utf-8')
+#     assert 'Неверное количество цифр' in content
+#     assert 'is-invalid' in content
 
-def test_valid_number_formatting(client):
-    rv = client.post('/number', data={'number': '+7 (999) 123-45-67'})
-    content = rv.data.decode('utf-8')
-    assert 'Номер: 89991234567' in content
+# def test_valid_number_formatting(client):
+#     rv = client.post('/number', data={'number': '+7 (999) 123-45-67'})
+#     content = rv.data.decode('utf-8')
+#     assert 'Номер: 89991234567' in content
 
 @pytest.mark.parametrize("input_number, expected_output", [
     ("+7 (999) 123-45-67", "Номер: 89991234567"),

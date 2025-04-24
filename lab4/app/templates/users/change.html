@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post">
+
+    <div class="mb-3">
+        <label for="old-password" class="form-label">Введите старый пароль</label>
+        <input type="password" name="old_password" id="old-password" class="form-control" value="">
+    </div>
+    <div class="mb-3">
+        <label for="new-password" class="form-label">Введите новый пароль</label>
+        <input type="password" name="new_password" id="new-password" class="form-control" value="">
+    </div>
+    <div class="mb-3">
+        <label for="copy-password" class="form-label">Повторите пароль</label>
+        <input type="password" name="copy_password" id="copy-password" class="form-control" value="">
+    </div>
+
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    </div>
+</form>
+{% endblock %}
